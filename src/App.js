@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, addDoc  } from "firebase/firestore";
 import db from './firebase/firebaseConfig';
 
 export const App = () => {
@@ -15,6 +15,26 @@ export const App = () => {
 
     obtenerDatos();
   }, [])
+
+  useEffect(() => {
+   
+    const agregarDatos = async() =>{
+
+      try {
+        const docRef = await addDoc(collection(db, "usuarios"), {
+          nombre: "Ada",
+          edad: 24
+        });
+        console.log("Document written with ID: ", docRef.id);
+      } catch (e) {
+        console.error("Error adding document: ", e);
+      }
+
+    }
+
+    agregarDatos();
+
+  }, []);
 
 
   return (
